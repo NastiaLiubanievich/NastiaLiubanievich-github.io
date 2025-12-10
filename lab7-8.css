@@ -1,0 +1,402 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+}
+
+/* Заголовок */
+header {
+    text-align: center;
+    padding: 30px 20px;
+    background: white;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+header h1 {
+    font-size: 2.5em;
+    font-weight: 300;
+    color: #2c3e50;
+}
+
+header h1 .ampersand {
+    color: #e74c3c;
+    font-weight: 400;
+}
+
+/* Основний контейнер */
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Приховані радіо-кнопки для фільтрації */
+input[type="radio"] {
+    display: none;
+}
+
+/* ДЕСКТОПНИЙ ЛЕЙАУТ - фільтри СПРАВА */
+.content-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+.gallery-section {
+    flex: 1;
+}
+
+.filters-section {
+    width: 280px;
+    flex-shrink: 0;
+    order: 2;
+}
+
+/* Фільтри */
+.filters {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.filter-calories {
+    margin-bottom: 25px;
+}
+
+.filter-calories h3 {
+    font-size: 0.95em;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #4a5568;
+    text-align: left;
+}
+
+/* Контейнер для слайдера */
+.range-container {
+    position: relative;
+    width: 100%;
+    padding: 15px 0;
+}
+
+/* Лінія треку */
+.range-track {
+    position: relative;
+    width: 100%;
+    height: 2px;
+    background: #cbd5e0;
+}
+
+/* Активна частина між повзунками */
+.range-progress {
+    position: absolute;
+    height: 2px;
+    background: #4a5568;
+    left: 15%;
+    right: 15%;
+    top: 0;
+}
+
+/* Повзунки */
+.range-thumb {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: #4a5568;
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.range-thumb.left {
+    left: 15%;
+}
+
+.range-thumb.right {
+    left: 85%;
+}
+
+/* Значення калорій */
+.calorie-value {
+    text-align: center;
+    font-size: 0.85em;
+    color: #4a5568;
+    margin-top: 12px;
+}
+
+.filter-types {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.filter-types label {
+    padding: 12px 20px;
+    background: #e8e8e8;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+    font-size: 1em;
+    color: #2c3e50;
+}
+
+.filter-types input[type="radio"]:checked+label {
+    background: #2c3e50;
+    color: white;
+}
+
+.filter-types label:hover {
+    background: #d0d0d0;
+}
+
+.filter-types input[type="radio"]:checked+label:hover {
+    background: #34495e;
+}
+
+/* Галерея */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    grid-auto-rows: 1fr;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s, filter 0.3s, opacity 0.3s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.card-image {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background: #f5f5f5;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.card-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-category {
+    font-size: 0.85em;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+}
+
+.card-title {
+    font-size: 1.3em;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.card-calories {
+    color: #7f8c8d;
+    font-size: 0.9em;
+    margin-top: auto;
+}
+
+/* Фільтрація - показуємо всі за замовчуванням */
+.card {
+    filter: none;
+    opacity: 1;
+}
+
+/* Коли обрано конкретний фільтр */
+#pie:checked~.main-container .gallery .card {
+    filter: grayscale(100%);
+    opacity: 0.4;
+}
+
+#pie:checked~.main-container .gallery .card[data-type="пиріг"] {
+    filter: none;
+    opacity: 1;
+}
+
+#roll:checked~.main-container .gallery .card {
+    filter: grayscale(100%);
+    opacity: 0.4;
+}
+
+#roll:checked~.main-container .gallery .card[data-type="рулет"] {
+    filter: none;
+    opacity: 1;
+}
+
+#cheesecake:checked~.main-container .gallery .card {
+    filter: grayscale(100%);
+    opacity: 0.4;
+}
+
+#cheesecake:checked~.main-container .gallery .card[data-type="сирник"] {
+    filter: none;
+    opacity: 1;
+}
+
+#cupcake:checked~.main-container .gallery .card {
+    filter: grayscale(100%);
+    opacity: 0.4;
+}
+
+#cupcake:checked~.main-container .gallery .card[data-type="тістечко"] {
+    filter: none;
+    opacity: 1;
+}
+
+#cake:checked~.main-container .gallery .card {
+    filter: grayscale(100%);
+    opacity: 0.4;
+}
+
+#cake:checked~.main-container .gallery .card[data-type="торт"] {
+    filter: none;
+    opacity: 1;
+}
+
+#reset:checked~.main-container .gallery .card {
+    filter: none;
+    opacity: 1;
+}
+
+/* Футер */
+footer {
+    margin-top: 50px;
+    padding: 20px;
+    background: white;
+    border-top: 2px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+    color: #7f8c8d;
+}
+
+footer a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* ПЛАНШЕТ (730px - 1200px) */
+@media (min-width: 730px) and (max-width: 1200px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    .filters-section {
+        width: 100%;
+        order: 0;
+    }
+
+    .filter-types {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .filter-calories {
+        margin-bottom: 20px;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+
+    .card-image {
+        height: 200px;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
+/* МОБІЛЬНИЙ (до 730px) */
+@media (max-width: 730px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    .main-container {
+        padding: 15px;
+    }
+
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    .filters-section {
+        width: 100%;
+        order: 0;
+    }
+
+    .filter-types {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .filter-types label {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    .filter-calories {
+        margin-bottom: 20px;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .card-image {
+        height: 250px;
+    }
+
+    .card-content {
+        padding: 15px;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+        font-size: 0.85em;
+    }
+}
